@@ -11,13 +11,44 @@ function App() {
   const [isPaused, setIsPaused] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [navReady, setNavReady] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const projectsData = [
+    {
+      title: "Cinema Hub",
+      description: "A state-of-the-art movie streaming platform featuring a high-performance microservices backend, seamless video playback, and a cinematic user interface.",
+      tech: ["React", "Go", "Docker"],
+      moreTech: 4,
+      status: "LIVE & OPERATIONAL",
+      image: "/Pasindu_portfolio/projects/cinema.png",
+      github: "https://github.com"
+    },
+    {
+      title: "AI Career Coach",
+      description: "An intelligent platform that helps users land their dream job through AI-simulated interviews, smart resume building, and real-time feedback.",
+      tech: ["Next.js", "OpenAI", "Zod"],
+      moreTech: 5,
+      status: "ALL SYSTEMS OPERATIONAL",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+      github: "https://github.com"
+    },
+    {
+      title: "Cloud Orchestrator",
+      description: "A comprehensive infrastructure management tool to automatically scale, provision, and deploy robust microservices across multi-cloud environments.",
+      tech: ["Kubernetes", "AWS", "Terraform"],
+      moreTech: 3,
+      status: "DEPLOYED & SCALING",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
+      github: "https://github.com"
+    }
+  ];
 
   const getGreeting = () => {
     const h = new Date().getHours();
-    if (h >= 5  && h < 12) return { text: 'Good Morning',   emoji: '🌅' };
+    if (h >= 5 && h < 12) return { text: 'Good Morning', emoji: '🌅' };
     if (h >= 12 && h < 17) return { text: 'Good Afternoon', emoji: '☀️' };
-    if (h >= 17 && h < 21) return { text: 'Good Evening',   emoji: '🌆' };
-    return                         { text: 'Good Night',     emoji: '🌙' };
+    if (h >= 17 && h < 21) return { text: 'Good Evening', emoji: '🌆' };
+    return { text: 'Good Night', emoji: '🌙' };
   };
   const greeting = getGreeting();
 
@@ -29,7 +60,7 @@ function App() {
 
   // Scroll-based active section detection
   useEffect(() => {
-    const sections = ['home', 'about', 'projects', 'contact'];
+    const sections = ['home', 'about', 'skills', 'projects', 'contact'];
     const handleScroll = () => {
       const scrollY = window.scrollY + 120;
       let current = 'home';
@@ -69,7 +100,8 @@ function App() {
   const navLinks = [
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Work' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'projects', label: 'Works' },
     { id: 'contact', label: 'Contact' },
   ];
 
@@ -122,7 +154,7 @@ function App() {
                       {link.label}
                     </a>
                   ))}
-                  <a href="mailto:pasindu@example.com" className="nav-pill-cta">Hire Me</a>
+                  <a href="#contact" className="nav-pill-cta">Hire Me</a>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -131,7 +163,7 @@ function App() {
 
         {/* Main Content */}
         <main className="relative z-10">
-          
+
           {/* Hero Section */}
           <section id="home" className="h-screen flex items-center justify-center">
             <div className="container text-center">
@@ -145,7 +177,7 @@ function App() {
                   <span className="liquid-glass-white" data-text="Hi, I'm">Hi, I'm</span>
                   <span className="text-white">Pasindu</span>
                 </h1>
-                
+
                 <div className="mt-12 role-text-container">
                   <p className="role-typewriter">
                     {displayText}
@@ -156,179 +188,316 @@ function App() {
             </div>
           </section>
 
-        {/* About Section */}
-        <section id="about" className="py-32">
-          <div className="container">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-              >
-                <h2 className="text-huge font-black mb-10 tracking-tighter leading-[1] uppercase">
-                  Architecting <br />
-                  <span className="text-gradient-purple">resilient infra.</span>
-                </h2>
-                <div className="space-y-6 text-white/70 leading-relaxed text-base md:text-lg text-justify font-light">
-                  <p>
-                    DevOps and Cloud Solutions Engineer operating at the intersection of software development and system architecture. Expertise includes containerizing applications with Docker, designing secure network architectures, and orchestrating full-stack environments—spanning dynamic frontends to persistent database layers. Proven ability to configure automated pipelines, manage cloud resources, and implement security best practices. Dedicated to building resilient, scalable systems that empower development teams to ship software faster and safer.
-                  </p>
-                </div>
-
-                <div className="mt-12 flex gap-4">
-                  <a href="https://github.com" className="social-icon-btn">
-                    <Github size={20} />
-                  </a>
-                  <a href="https://linkedin.com" className="social-icon-btn">
-                    <Linkedin size={20} />
-                  </a>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="relative flex justify-center items-center"
-              >
-                {/* Cloud Architecture Animation */}
-                <div className="animation-container">
-                  <svg viewBox="0 0 400 400" className="w-full h-full opacity-60">
-                    <defs>
-                      <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style={{ stopColor: '#ec4899', stopOpacity: 1 }} />
-                        <stop offset="100%" style={{ stopColor: '#8b5cf6', stopOpacity: 1 }} />
-                      </linearGradient>
-                    </defs>
-                    
-                    {/* Connecting Lines */}
-                    {[
-                      { x1: 200, y1: 100, x2: 100, y2: 250 },
-                      { x1: 200, y1: 100, x2: 300, y2: 250 },
-                      { x1: 100, y1: 250, x2: 300, y2: 250 },
-                      { x1: 100, y1: 250, x2: 200, y2: 350 },
-                      { x1: 300, y1: 250, x2: 200, y2: 350 },
-                    ].map((line, i) => (
-                      <motion.line
-                        key={i}
-                        x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}
-                        stroke="url(#glow)" strokeWidth="1" strokeDasharray="5,5"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                      />
-                    ))}
-
-                    {/* Nodes representing Servers/Pills */}
-                    {[
-                      { x: 200, y: 100, label: "Cloud" },
-                      { x: 100, y: 250, label: "Docker" },
-                      { x: 300, y: 250, label: "AWS" },
-                      { x: 200, y: 350, label: "CI/CD" }
-                    ].map((node, i) => (
-                      <motion.g 
-                        key={i}
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ duration: 4, repeat: Infinity, delay: i * 0.5, ease: "easeInOut" }}
-                      >
-                        <circle cx={node.x} cy={node.y} r="8" fill="url(#glow)" />
-                        <text x={node.x} y={node.y + 25} textAnchor="middle" fill="white" fontSize="12" className="font-mono uppercase tracking-widest opacity-50">
-                          {node.label}
-                        </text>
-                        <circle cx={node.x} cy={node.y} r="15" stroke="url(#glow)" strokeWidth="0.5" fill="none" opacity="0.3" />
-                      </motion.g>
-                    ))}
-                  </svg>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* Projects Section */}
-        <section id="projects" className="py-32">
-          <div className="container">
-            <div className="flex justify-between items-end mb-16">
-              <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">
-                FEATURED <br />
-                <span className="opacity-40">WORKS.</span>
-              </h2>
-              <p className="text-white/40 max-w-xs text-right hidden md:block">
-                A collection of projects where design meets code seamlessly.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[
-                { title: "Nexus AI", category: "Artificial Intelligence", color: "from-white/5 to-white/1" },
-                { title: "Vault Pay", category: "Fintech Solution", color: "from-white/5 to-white/1" },
-                { title: "Cloud Peak", category: "SaaS Dashboard", color: "from-white/5 to-white/1" },
-                { title: "Aura Flow", category: "E-commerce", color: "from-white/5 to-white/1" }
-              ].map((project, i) => (
+          {/* About Section */}
+          <section id="about" className="py-32">
+            <div className="container">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  whileHover={{ y: -10 }}
-                  className="glass-card overflow-hidden group h-[400px] flex flex-col justify-end p-10 relative"
+                  transition={{ duration: 0.8 }}
+                  className="relative flex justify-center items-center"
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity`}></div>
-                  <span className="text-xs font-bold tracking-widest text-white/40 uppercase mb-2">{project.category}</span>
-                  <h3 className="text-4xl font-black mb-6">{project.title}</h3>
-                  <div className="flex gap-4">
-                    <span className="px-3 py-1 rounded-full bg-white/5 text-[10px] border border-white/10 uppercase font-bold">Case Study</span>
-                    <span className="px-3 py-1 rounded-full bg-white/5 text-[10px] border border-white/10 uppercase font-bold text-white/40">Live Demo</span>
+                  {/* Placeholder for future image */}
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <h2 className="text-huge font-black mb-16 tracking-tighter leading-[1] uppercase whitespace-nowrap">
+                    <span className="text-white">Automate.</span>
+                    <span className="liquid-glass-white mx-4" data-text="Scale.">Scale.</span>
+                    <span className="text-white">Deploy.</span>
+                  </h2>
+                  <div className="space-y-8 text-white/70 leading-relaxed text-base md:text-lg font-light font-roboto">
+                    <p>
+                      Hi, I’m Pasindu. I am a Cloud and DevOps Engineer specializing in architecting scalable microservices, container orchestration, and automating deployment workflows. From building comprehensive streaming architectures using Docker and Azure to bridging the gap between development and operations, I am passionate about creating resilient, highly available infrastructure.
+                    </p>
+                    <p>
+                      I am focused on leveraging my skills in remote, international environments to help global teams build and scale robust systems.
+                    </p>
+                  </div>
+
+                  <div className="mt-12 flex gap-4">
+                    <a href="https://github.com" className="social-icon-btn">
+                      <Github size={20} />
+                    </a>
+                    <a href="https://linkedin.com" className="social-icon-btn">
+                      <Linkedin size={20} />
+                    </a>
                   </div>
                 </motion.div>
-              ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Contact Footer Banner */}
-        <section className="py-20">
-          <div className="container">
-            <div className="glass-card p-12 md:p-24 text-center rounded-[40px] border-white/10">
-              <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter uppercase">
-                HAVE A <span className="opacity-40">CONCEPT?</span>
-              </h2>
-              <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto font-light">
-                I'm currently accepting new projects and collaborations. 
-                Let's build something that stands out.
+          {/* Technical Skills Section */}
+          <section id="skills" className="py-32 border-y border-white/5 bg-white/[0.01]">
+            <div className="container mb-16">
+              <div className="flex justify-center">
+                <h2 className="text-huge font-black tracking-tighter leading-[1] uppercase whitespace-nowrap">
+                  <span className="text-white">Technical</span>{" "}
+                  <span className="liquid-glass-white ml-4" data-text="Skills.">Skills.</span>
+                </h2>
+              </div>
+            </div>
+
+            <div className="tech-marquee-wrapper">
+              <div className="tech-marquee-content">
+                {[...Array(2)].map((_, i) => (
+                  <React.Fragment key={i}>
+                    <div className="tech-item group">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" className="tech-icon" />
+                      <span className="tech-name">Docker</span>
+                    </div>
+                    <div className="tech-item group">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS" className="tech-icon" />
+                      <span className="tech-name">AWS</span>
+                    </div>
+                    <div className="tech-item group">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" alt="Azure" className="tech-icon" />
+                      <span className="tech-name">Azure</span>
+                    </div>
+                    <div className="tech-item group">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" className="tech-icon" />
+                      <span className="tech-name">Kubernetes</span>
+                    </div>
+                    <div className="tech-item group">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" alt="Terraform" className="tech-icon" />
+                      <span className="tech-name">Terraform</span>
+                    </div>
+                    <div className="tech-item group">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" className="tech-icon" />
+                      <span className="tech-name">Git</span>
+                    </div>
+                    <div className="tech-item group">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg" alt="GitLab" className="tech-icon" />
+                      <span className="tech-name">GitLab</span>
+                    </div>
+                    <div className="tech-item group">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" className="tech-icon" />
+                      <span className="tech-name">GitHub</span>
+                    </div>
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Projects Section */}
+          <section id="projects" className="py-32">
+            <div className="container">
+              <div className="flex justify-center mb-16">
+                <h2 className="text-huge font-black tracking-tighter leading-[1] uppercase whitespace-nowrap">
+                  <span className="text-white">Featured</span>{" "}
+                  <span className="liquid-glass-white ml-4" data-text="Works.">Works.</span>
+                </h2>
+              </div>
+
+              <div className="projects-slider no-scrollbar">
+                {projectsData.map((project, i) => (
+                  <motion.div
+                    key={i}
+                    layoutId={`project-${project.title}`}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ y: -10 }}
+                    className="project-slide glass-card overflow-hidden group flex flex-col p-0 relative h-auto"
+                  >
+                    {/* Image Header area */}
+                    <div className="project-header">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                      />
+                      <a 
+                        href={project.github} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="project-github-btn"
+                      >
+                        <Github size={14} /> Open in Github
+                      </a>
+                    </div>
+
+                    {/* Content area - Card Layout */}
+                    <div className="project-content">
+                      <div className="project-header-row">
+                        <h3 className="project-title">
+                          {project.title}
+                        </h3>
+                      </div>
+                      
+                      <p className="project-desc">
+                        {project.description}
+                      </p>
+                      
+                      <div className="project-tech-section">
+                        <h4 className="project-tech-title">Technologies</h4>
+                        <div className="project-tech-list">
+                          {project.tech.map((t, idx) => (
+                            <span key={idx} className="tech-tag">{t}</span>
+                          ))}
+                          {project.moreTech && (
+                            <span className="tech-tag text-white/50">+{project.moreTech}</span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <a href="#" onClick={(e) => { e.preventDefault(); setSelectedProject(project); }} className="project-details-btn">
+                        View Details <ArrowRight size={14} />
+                      </a>
+
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Github CTA Banner */}
+            <div className="container mt-24">
+              <div className="glass-card github-cta-banner group">
+                <Github className="github-cta-bg-icon" />
+                
+                <div className="github-cta-overlay"></div>
+                
+                <div className="github-cta-content">
+                  <h2 className="github-cta-title">
+                    <span className="text-white">Look for</span>{" "}
+                    <span className="liquid-glass-white" data-text="More Projects?">More Projects?</span>
+                  </h2>
+                  <p className="github-cta-desc">
+                    Explore my complete repositories on GitHub to see more of my open-source contributions, experimental builds, and architectural designs.
+                  </p>
+                </div>
+                
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="btn-primary github-cta-btn">
+                  <Github size={20} className="mr-3" /> Visit Github <ArrowRight className="ml-3 github-cta-btn-arrow transition-transform" size={18} />
+                </a>
+              </div>
+            </div>
+          </section>
+
+          {/* Contact Footer Banner */}
+          <section id="contact" className="py-20">
+            <div className="container">
+              <div className="glass-card p-12 md:p-24 text-center rounded-[40px] border-white/10 overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
+                <h2 className="text-huge font-black mb-12 tracking-tighter leading-[1] uppercase">
+                  <span className="text-white">Have a</span>{" "}
+                  <span className="liquid-glass-white" data-text="Concept?">Concept?</span>
+                </h2>
+                <p className="text-lg md:text-xl text-white/60 mb-12 max-w-2xl mx-auto font-light font-roboto">
+                  I'm currently accepting new projects and collaborations.
+                  Let's build something that stands out.
+                </p>
+                <a href="mailto:hello@example.com" className="btn-primary text-xl px-12 py-5 scale-110 group">
+                  Estimate Project <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" size={20} />
+                </a>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="py-12 border-t border-white/5">
+            <div className="container flex flex-col md:flex-row justify-between items-center gap-8">
+              <p className="text-white/30 text-xs tracking-widest uppercase font-bold">
+                © 2026 Portfolio New. All Rights Reserved.
               </p>
-              <a href="mailto:hello@example.com" className="btn-primary text-xl px-12 py-4">
-                Estimate Project
-              </a>
+              <div className="flex gap-10">
+                <Github className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
+                <Linkedin className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
+                <Twitter className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
+                <Mail className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
+              </div>
             </div>
-          </div>
-        </section>
+          </footer>
+        </main>
 
-        {/* Footer */}
-        <footer className="py-12 border-t border-white/5">
-          <div className="container flex flex-col md:flex-row justify-between items-center gap-8">
-            <p className="text-white/30 text-xs tracking-widest uppercase font-bold">
-              © 2026 Portfolio New. All Rights Reserved.
-            </p>
-            <div className="flex gap-10">
-              <Github className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
-              <Linkedin className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
-              <Twitter className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
-              <Mail className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
-            </div>
-          </div>
-        </footer>
-      </main>
-
-      {/* Progress Bar */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-white/30 z-[60] origin-left"
-        style={{ scaleX: 0 }}
-        id="scroll-progress"
-      />
+        {/* Progress Bar */}
+        <motion.div
+          className="fixed top-0 left-0 right-0 h-1 bg-white/30 z-[60] origin-left"
+          style={{ scaleX: 0 }}
+          id="scroll-progress"
+        />
       </motion.div>
+
+        {/* Project Expanded Modal */}
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-10"
+            >
+              {/* Overlay */}
+              <motion.div 
+                className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
+                onClick={() => setSelectedProject(null)}
+              />
+              
+              {/* Expanded Card */}
+              <motion.div
+                layoutId={`project-${selectedProject.title}`}
+                className="glass-card overflow-hidden flex flex-col relative w-full max-w-4xl max-h-[90vh] z-10"
+              >
+                {/* Image Header area */}
+                <div className="relative h-64 sm:h-[450px] w-full shrink-0">
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <button 
+                    onClick={() => setSelectedProject(null)}
+                    className="absolute top-6 right-6 bg-black/50 hover:bg-black/80 text-white rounded-full p-3 transition-colors cursor-pointer z-50"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                  </button>
+                </div>
+
+                {/* Content area */}
+                <div className="p-8 sm:p-12 flex flex-col overflow-y-auto custom-scrollbar bg-[#111]">
+                  <h3 className="text-3xl sm:text-5xl font-black font-heading text-white mb-6">
+                    {selectedProject.title}
+                  </h3>
+                  
+                  <p className="text-white/80 font-roboto text-lg mb-8 leading-relaxed">
+                    {selectedProject.description}
+                    <br /><br />
+                    This project showcases advanced architectural decisions including microservices orchestration, scalable deployments, and comprehensive containerization. With continuous integration and high-availability setups, it's built to handle significant loads effortlessly.
+                  </p>
+                  
+                  <div className="mb-10">
+                    <h4 className="text-white/40 text-sm font-bold tracking-widest uppercase mb-4">Technologies Used</h4>
+                    <div className="flex flex-wrap gap-3">
+                      {selectedProject.tech.map((t, idx) => (
+                        <span key={idx} className="tech-tag text-base px-4 py-2">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-4 mt-auto pt-6 border-t border-white/10">
+                    <a 
+                      href={selectedProject.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="btn-primary"
+                    >
+                      <Github size={20} className="mr-2"/> View Source
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
     </div>
   );
 }
