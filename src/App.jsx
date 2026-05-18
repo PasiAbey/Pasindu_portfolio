@@ -279,7 +279,7 @@ function App() {
                       <span className="tech-name">GitLab</span>
                     </div>
                     <div className="tech-item group">
-                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" className="tech-icon" />
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" className="tech-icon github-logo-adjust" />
                       <span className="tech-name">GitHub</span>
                     </div>
                   </React.Fragment>
