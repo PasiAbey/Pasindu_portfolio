@@ -21,7 +21,7 @@ function App() {
       moreTech: 4,
       status: "LIVE & OPERATIONAL",
       image: "/Pasindu_portfolio/projects/cinema.png",
-      github: "https://github.com"
+      github: "https://github.com/PasiAbey"
     },
     {
       title: "AI Career Coach",
@@ -30,7 +30,7 @@ function App() {
       moreTech: 5,
       status: "ALL SYSTEMS OPERATIONAL",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
-      github: "https://github.com"
+      github: "https://github.com/PasiAbey"
     },
     {
       title: "Cloud Orchestrator",
@@ -39,7 +39,7 @@ function App() {
       moreTech: 3,
       status: "DEPLOYED & SCALING",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
-      github: "https://github.com"
+      github: "https://github.com/PasiAbey"
     }
   ];
 
@@ -47,8 +47,7 @@ function App() {
     const h = new Date().getHours();
     if (h >= 5 && h < 12) return { text: 'Good Morning', emoji: '🌅' };
     if (h >= 12 && h < 17) return { text: 'Good Afternoon', emoji: '☀️' };
-    if (h >= 17 && h < 21) return { text: 'Good Evening', emoji: '🌆' };
-    return { text: 'Good Night', emoji: '🌙' };
+    return { text: 'Good Evening', emoji: '🌆' };
   };
   const greeting = getGreeting();
 
@@ -134,7 +133,6 @@ function App() {
                   transition={{ duration: 0.4, delay: 0.5 }}
                   exit={{ opacity: 0 }}
                 >
-                  <span className="nav-greeting-emoji">{greeting.emoji}</span>
                   <span>{greeting.text}</span>
                 </motion.div>
               ) : (
@@ -223,10 +221,10 @@ function App() {
                   </div>
 
                   <div className="mt-12 flex gap-4">
-                    <a href="https://github.com" className="social-icon-btn">
+                    <a href="https://github.com/PasiAbey" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
                       <Github size={20} />
                     </a>
-                    <a href="https://linkedin.com" className="social-icon-btn">
+                    <a href="https://www.linkedin.com/in/pasiabey" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
                       <Linkedin size={20} />
                     </a>
                   </div>
@@ -376,7 +374,7 @@ function App() {
                   </p>
                 </div>
                 
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="btn-primary github-cta-btn">
+                <a href="https://github.com/PasiAbey" target="_blank" rel="noopener noreferrer" className="btn-primary github-cta-btn">
                   <Github size={20} className="mr-3" /> Visit Github <ArrowRight className="ml-3 github-cta-btn-arrow transition-transform" size={18} />
                 </a>
               </div>
@@ -386,35 +384,51 @@ function App() {
           {/* Contact Footer Banner */}
           <section id="contact" className="py-20">
             <div className="container">
-              <div className="glass-card p-12 md:p-24 text-center rounded-[40px] border-white/10 overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
-                <h2 className="text-huge font-black mb-12 tracking-tighter leading-[1] uppercase">
-                  <span className="text-white">Have a</span>{" "}
-                  <span className="liquid-glass-white" data-text="Concept?">Concept?</span>
-                </h2>
-                <p className="text-lg md:text-xl text-white/60 mb-12 max-w-2xl mx-auto font-light font-roboto">
-                  I'm currently accepting new projects and collaborations.
-                  Let's build something that stands out.
-                </p>
-                <a href="mailto:hello@example.com" className="btn-primary text-xl px-12 py-5 scale-110 group">
-                  Estimate Project <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" size={20} />
-                </a>
+              <div className="contact-grid">
+                
+                {/* Left Side: Text */}
+                <div className="contact-text-col">
+                  <h2 className="text-huge font-black tracking-tighter leading-[1] uppercase whitespace-nowrap mb-6">
+                    <span className="text-white">Get in</span>{" "}
+                    <span className="liquid-glass-white ml-4" data-text="Touch.">Touch.</span>
+                  </h2>
+                  <p className="contact-desc">
+                    I'm always interested in hearing about new projects and opportunities.<br />
+                    Drop me a message!
+                  </p>
+                </div>
+
+                {/* Right Side: Form */}
+                <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Name</label>
+                      <input type="text" placeholder="Enter your name" />
+                    </div>
+                    <div className="form-group">
+                      <label>Email</label>
+                      <input type="email" placeholder="Enter your email" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Message</label>
+                    <textarea placeholder="Write your message here" rows="5"></textarea>
+                  </div>
+                  <button type="submit" className="contact-submit-btn">
+                    Send Message
+                  </button>
+                </form>
+
               </div>
             </div>
           </section>
 
           {/* Footer */}
           <footer className="py-12 border-t border-white/5">
-            <div className="container flex flex-col md:flex-row justify-between items-center gap-8">
-              <p className="text-white/30 text-xs tracking-widest uppercase font-bold">
-                © 2026 Portfolio New. All Rights Reserved.
+            <div className="container text-center">
+              <p className="text-white/30 tracking-widest uppercase" style={{ fontSize: '0.68rem', fontWeight: 400, paddingBottom: '2rem' }}>
+                © 2026 Pasindu Abeysundara. All rights reserved.
               </p>
-              <div className="flex gap-10">
-                <Github className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
-                <Linkedin className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
-                <Twitter className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
-                <Mail className="cursor-pointer hover:text-cyan-400 transition-colors opacity-50 hover:opacity-100" size={18} />
-              </div>
             </div>
           </footer>
         </main>
