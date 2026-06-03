@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import InteractiveBackground from './components/InteractiveBackground';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Twitter, Mail, ArrowRight, ExternalLink, Code2, Cpu, Globe } from 'lucide-react';
+import profileImg from './assets/Main_versions.png';
 
 function App() {
   const roles = ['DevOps Engineer', 'Cloud Solution Engineer'];
@@ -13,30 +14,125 @@ function App() {
   const [navReady, setNavReady] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
+  const handleMouseMove = (e) => {
+    const container = e.currentTarget;
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const dx = (x / rect.width) - 0.5;
+    const dy = (y / rect.height) - 0.5;
+    
+    container.style.setProperty('--dx', dx);
+    container.style.setProperty('--dy', dy);
+  };
+
+  const handleMouseLeave = (e) => {
+    const container = e.currentTarget;
+    container.style.removeProperty('--dx');
+    container.style.removeProperty('--dy');
+  };
+
   const projectsData = [
     {
-      title: "Cinema Hub",
-      description: "A state-of-the-art movie streaming platform featuring a high-performance microservices backend, seamless video playback, and a cinematic user interface.",
-      tech: ["React", "Go", "Docker"],
-      moreTech: 4,
+      title: "Skill-Quest",
+      description: "A scalable, containerized full-stack application leveraging Reinforcement Learning algorithms to personalize educational gamification.",
+      fullDescription: (
+        <div className="flex flex-col gap-4 text-sm md:text-base mt-2">
+          <p>
+            SkillQuest is a comprehensive, full-stack educational platform designed to maximize student engagement through dynamic gamification and adaptive learning systems. Going beyond traditional Learning Management Systems (LMS), SkillQuest integrates a custom Reinforcement Learning (RL) agent that continuously monitors student performance, automatically adjusting task difficulty and tailoring the learning experience in real-time.
+          </p>
+
+          <div>
+            <strong className="text-white text-[0.95rem]">Architectural Approach</strong>
+            <p className="mt-1 text-white/70">
+              Designed with scalability and modern DevOps practices in mind, the platform operates on a containerized microservices architecture. An Nginx API Gateway acts as the central orchestrator, routing traffic seamlessly between a static React client, decoupled Node.js backend services, and a dedicated Python machine learning API. The entire ecosystem is containerized using Docker and Docker Compose, enabling isolated development, zero-CORS configuration, and one-command deployment.
+            </p>
+          </div>
+
+          <div>
+            <strong className="text-white text-[0.95rem]">Key Features</strong>
+            <ul className="list-disc pl-5 mt-2 space-y-2 text-white/70">
+              <li><strong>Adaptive Reinforcement Learning:</strong> Utilizes a Deep Q-Network (DQN) algorithm served via a dedicated Python API to track user states, calculate reward functions, and intelligently adapt educational content to the user's skill level.</li>
+              <li><strong>Advanced Gamification Engine:</strong> Features a robust milestone system that calculates and awards badges, tracks consecutive login streaks, and manages user scores to incentivize consistent learning habits.</li>
+              <li><strong>Dynamic Plan Generation:</strong> Automatically generates customized study plans, quizzes, and training sessions based on real-time analytics and user progress.</li>
+              <li><strong>Secure Identity & Data Management:</strong> Implements secure user authentication using JWT and bcrypt, with data integrity maintained through raw, highly optimized MySQL SQL migrations rather than heavy ORMs.</li>
+            </ul>
+          </div>
+
+          <div>
+            <strong className="text-white text-[0.95rem]">Technical Stack</strong>
+            <ul className="list-disc pl-5 mt-2 space-y-1 text-white/70">
+              <li><strong>Frontend:</strong> React, Vite</li>
+              <li><strong>Backend Services:</strong> Node.js, Express.js</li>
+              <li><strong>Machine Learning:</strong> Python, Reinforcement Learning (DQN)</li>
+              <li><strong>Database:</strong> MySQL (mysql2)</li>
+              <li><strong>DevOps & Infrastructure:</strong> Docker, Docker Compose, Nginx API Gateway</li>
+            </ul>
+          </div>
+
+          <div>
+            <strong className="text-white text-[0.95rem]">Project Impact</strong>
+            <p className="mt-1 text-white/70">
+              SkillQuest demonstrates a strong command of modern software engineering principles, bridging the gap between complex machine learning algorithms and robust, user-facing web development. It showcases the ability to architect decoupled microservices, manage containerized deployments, and design engaging, data-driven user experiences.
+            </p>
+          </div>
+        </div>
+      ),
+      tech: ["React", "Python", "Docker", "Git", "Node.js"],
       status: "LIVE & OPERATIONAL",
-      image: "/Pasindu_portfolio/projects/cinema.png",
-      github: "https://github.com/PasiAbey"
+      image: "/Pasindu_portfolio/projects/skillquest.png",
+      github: "https://github.com/PasiAbey/Project-Skill-Quest"
     },
     {
-      title: "AI Career Coach",
-      description: "An intelligent platform that helps users land their dream job through AI-simulated interviews, smart resume building, and real-time feedback.",
-      tech: ["Next.js", "OpenAI", "Zod"],
-      moreTech: 5,
+      title: "CINEMA - Streaming Platform",
+      description: "A highly scalable Cinema Streaming Platform built entirely on a modern, cloud-native microservices architecture using Docker, Nginx, and Microsoft Azure.",
+      fullDescription: (
+        <div className="flex flex-col gap-4 text-sm md:text-base mt-2">
+          <p>
+            Designed and deployed a highly scalable Cinema Streaming Platform built entirely on a modern microservices architecture. The objective of this project was to engineer a robust, cloud-native ecosystem capable of handling media delivery, secure user sessions, and seamless content management while maintaining high availability and zero-downtime deployments.
+          </p>
+
+          <div>
+            <strong className="text-white text-[0.95rem]">Tech Stack & Tools</strong>
+            <ul className="list-disc pl-5 mt-2 space-y-1 text-white/70">
+              <li><strong>Architecture:</strong> Microservices, API Gateway Pattern</li>
+              <li><strong>Containerization & Orchestration:</strong> Docker, Docker Compose</li>
+              <li><strong>Web Server / Reverse Proxy:</strong> Nginx</li>
+              <li><strong>Cloud Infrastructure:</strong> Microsoft Azure</li>
+              <li><strong>Frontend/Backend:</strong> React, Node.js, Python</li>
+            </ul>
+          </div>
+
+          <div>
+            <strong className="text-white text-[0.95rem]">Architecture & Implementation</strong>
+            <ul className="list-disc pl-5 mt-2 space-y-2 text-white/70">
+              <li><strong>Microservices Ecosystem:</strong> Decoupled standard streaming processes into isolated, independently deployable microservices to ensure that a failure in one system (e.g., billing or reviews) does not disrupt active video streams.</li>
+              <li><strong>Container Orchestration:</strong> Containerized all individual backend services and databases using Docker to guarantee environment consistency across development, testing, and production. Engineered a local development cluster using Docker Compose for rapid, streamlined testing.</li>
+              <li><strong>API Gateway & Traffic Routing:</strong> Configured Nginx to act as the central API Gateway and reverse proxy. This setup securely routes incoming client requests to the appropriate backend containers, balances network load, and obscures the internal microservice network from the public internet.</li>
+              <li><strong>Cloud Deployment & Security:</strong> Implemented a strict security model for intra-service communication and deployed the final containerized architecture to Azure, leveraging its cloud infrastructure for global scalability.</li>
+            </ul>
+          </div>
+
+          <div>
+            <strong className="text-white text-[0.95rem]">Key Outcomes & Features</strong>
+            <ul className="list-disc pl-5 mt-2 space-y-2 text-white/70">
+              <li>Engineered a highly resilient system where individual services can scale horizontally based on specific traffic demands.</li>
+              <li>Eliminated "it works on my machine" bugs through strict Docker containerization and comprehensive local cluster setup scripts.</li>
+              <li>Authored comprehensive technical documentation, including architecture diagrams, security models, and deployment READMEs to ensure the codebase remains maintainable and accessible for future contributors.</li>
+            </ul>
+          </div>
+        </div>
+      ),
+      tech: ["Docker", "Nginx", "Azure", "React", "Node.js", "Python"],
       status: "ALL SYSTEMS OPERATIONAL",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
-      github: "https://github.com/PasiAbey"
+      image: "/Pasindu_portfolio/projects/cinema_title.png",
+      github: "https://github.com/PasiAbey/Cinema---Movie-Streaming-Platform"
     },
     {
       title: "Cloud Orchestrator",
       description: "A comprehensive infrastructure management tool to automatically scale, provision, and deploy robust microservices across multi-cloud environments.",
-      tech: ["Kubernetes", "AWS", "Terraform"],
-      moreTech: 3,
+      tech: ["Kubernetes", "AWS", "Terraform", "Docker", "Go", "ArgoCD"],
       status: "DEPLOYED & SCALING",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
       github: "https://github.com/PasiAbey"
@@ -72,6 +168,19 @@ function App() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close modal on scroll
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const handleScroll = () => {
+      setSelectedProject(null);
+    };
+
+    // Listen to scroll events on the window to close the modal
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [selectedProject]);
 
   // Bidirectional typewriter
   useEffect(() => {
@@ -197,7 +306,17 @@ function App() {
                   transition={{ duration: 0.8 }}
                   className="relative flex justify-center items-center"
                 >
-                  {/* Placeholder for future image */}
+                  <div 
+                    className="about-image-container"
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <img 
+                      src={profileImg} 
+                      alt="Pasindu Abeysundara" 
+                      className="about-image"
+                    />
+                  </div>
                 </motion.div>
 
                 <motion.div
@@ -297,63 +416,67 @@ function App() {
               </div>
 
               <div className="projects-slider no-scrollbar">
-                {projectsData.map((project, i) => (
+                {projectsData.map((project, i) => {
+                  const isSelected = selectedProject?.title === project.title;
+                  return (
                   <motion.div
                     key={i}
                     layoutId={`project-${project.title}`}
+                    layout
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    whileHover={{ y: -10 }}
+                    whileHover={isSelected ? {} : { y: -10 }}
                     className="project-slide glass-card overflow-hidden group flex flex-col p-0 relative h-auto"
                   >
-                    {/* Image Header area */}
-                    <div className="project-header">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                      />
-                      <a 
-                        href={project.github} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="project-github-btn"
-                      >
-                        <Github size={14} /> Open in Github
-                      </a>
-                    </div>
-
-                    {/* Content area - Card Layout */}
-                    <div className="project-content">
-                      <div className="project-header-row">
-                        <h3 className="project-title">
-                          {project.title}
-                        </h3>
+                    <div style={{ opacity: isSelected ? 0 : 1, transition: "opacity 0.3s ease", display: "flex", flexDirection: "column", height: "100%" }}>
+                      {/* Image Header area */}
+                      <div className="project-header">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                        />
+                        <a 
+                          href={project.github} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="project-github-btn"
+                        >
+                          <Github size={14} /> Open in Github
+                        </a>
                       </div>
-                      
-                      <p className="project-desc">
-                        {project.description}
-                      </p>
-                      
-                      <div className="project-tech-section">
-                        <h4 className="project-tech-title">Technologies</h4>
-                        <div className="project-tech-list">
-                          {project.tech.map((t, idx) => (
-                            <span key={idx} className="tech-tag">{t}</span>
-                          ))}
-                          {project.moreTech && (
-                            <span className="tech-tag text-white/50">+{project.moreTech}</span>
-                          )}
+
+                      {/* Content area - Card Layout */}
+                      <div className="project-content">
+                        <div className="project-header-row">
+                          <h3 className="project-title">
+                            {project.title}
+                          </h3>
                         </div>
+                        
+                        <p className="project-desc">
+                          {project.description}
+                        </p>
+                        
+                        <div className="project-tech-section">
+                          <h4 className="project-tech-title">Technologies</h4>
+                          <div className="project-tech-list">
+                            {project.tech.slice(0, 3).map((t, idx) => (
+                              <span key={idx} className="tech-tag">{t}</span>
+                            ))}
+                            {project.tech.length > 3 && (
+                              <span className="tech-tag text-white/50">+{project.tech.length - 3}</span>
+                            )}
+                          </div>
+                        </div>
+                        
+                        <a href="#" onClick={(e) => { e.preventDefault(); setSelectedProject(project); }} className="project-details-btn">
+                          View Details <ArrowRight size={14} />
+                        </a>
                       </div>
-                      
-                      <a href="#" onClick={(e) => { e.preventDefault(); setSelectedProject(project); }} className="project-details-btn">
-                        View Details <ArrowRight size={14} />
-                      </a>
-
                     </div>
                   </motion.div>
-                ))}
+                )})}
               </div>
             </div>
 
@@ -441,75 +564,69 @@ function App() {
         />
       </motion.div>
 
-        {/* Project Expanded Modal */}
+        {/* Project Expanded Modal - outside main layout for correct stacking */}
         <AnimatePresence>
           {selectedProject && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-10"
-            >
-              {/* Overlay */}
-              <motion.div 
-                className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
+            <>
+              {/* Overlay & Card Container */}
+              <div 
+                className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-10 cursor-pointer"
                 onClick={() => setSelectedProject(null)}
-              />
-              
-              {/* Expanded Card */}
-              <motion.div
-                layoutId={`project-${selectedProject.title}`}
-                className="glass-card overflow-hidden flex flex-col relative w-full max-w-4xl max-h-[90vh] z-10"
               >
+                {/* Overlay Background */}
+                <motion.div 
+                  key="overlay"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                />
+                
+                {/* Expanded Card */}
+                <motion.div
+                  key="modal"
+                  layoutId={`project-${selectedProject.title}`}
+                  className="glass-card group relative shadow-2xl cursor-default"
+                  style={{ width: "90vw", maxWidth: "648px", maxHeight: "90vh", margin: 0, display: "flex", flexDirection: "column", overflow: "hidden", padding: 0 }}
+                  onClick={(e) => e.stopPropagation()}
+                >
                 {/* Image Header area */}
-                <div className="relative h-64 sm:h-[450px] w-full shrink-0">
+                <div className="project-header expanded-header" style={{ height: "333px", flexShrink: 0 }}>
                   <img
                     src={selectedProject.image}
                     alt={selectedProject.title}
-                    className="w-full h-full object-cover"
+                    style={{ objectFit: "contain", backgroundColor: "rgba(0,0,0,0.5)" }}
                   />
-                  <button 
-                    onClick={() => setSelectedProject(null)}
-                    className="absolute top-6 right-6 bg-black/50 hover:bg-black/80 text-white rounded-full p-3 transition-colors cursor-pointer z-50"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
-                  </button>
                 </div>
 
-                {/* Content area */}
-                <div className="p-8 sm:p-12 flex flex-col overflow-y-auto custom-scrollbar bg-[#111]">
-                  <h3 className="text-3xl sm:text-5xl font-black font-heading text-white mb-6">
-                    {selectedProject.title}
-                  </h3>
+                <div className="project-content" style={{ flex: "none", height: "calc(90vh - 333px)", maxHeight: "400px", overflowY: "auto", overflowX: "hidden" }}>
+                  <div className="project-header-row">
+                    <h3 className="project-title">
+                      {selectedProject.title}
+                    </h3>
+                  </div>
                   
-                  <p className="text-white/80 font-roboto text-lg mb-8 leading-relaxed">
-                    {selectedProject.description}
-                    <br /><br />
-                    This project showcases advanced architectural decisions including microservices orchestration, scalable deployments, and comprehensive containerization. With continuous integration and high-availability setups, it's built to handle significant loads effortlessly.
-                  </p>
+                  <div style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.75)", lineHeight: "1.6", marginBottom: "1rem" }}>
+                    {selectedProject.fullDescription || selectedProject.description}
+                  </div>
                   
-                  <div className="mb-10">
-                    <h4 className="text-white/40 text-sm font-bold tracking-widest uppercase mb-4">Technologies Used</h4>
-                    <div className="flex flex-wrap gap-3">
+                  <div className="project-tech-section">
+                    <h4 className="project-tech-title">Technologies</h4>
+                    <div className="project-tech-list">
                       {selectedProject.tech.map((t, idx) => (
-                        <span key={idx} className="tech-tag text-base px-4 py-2">{t}</span>
+                        <span key={idx} className="tech-tag">{t}</span>
                       ))}
                     </div>
                   </div>
                   
-                  <div className="flex gap-4 mt-auto pt-6 border-t border-white/10">
-                    <a 
-                      href={selectedProject.github} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="btn-primary"
-                    >
-                      <Github size={20} className="mr-2"/> View Source
-                    </a>
-                  </div>
+                  <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="project-details-btn" style={{ marginTop: "1rem" }}>
+                    Open in Github <Github size={14} className="ml-1" />
+                  </a>
                 </div>
               </motion.div>
-            </motion.div>
+            </div>
+            </>
           )}
         </AnimatePresence>
     </div>
