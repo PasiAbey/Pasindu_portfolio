@@ -1256,3 +1256,130 @@ a {
   transform: translateY(-2px);
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
 }
+
+/* -------------------------------------
+   EDUCATION SECTION 
+   ------------------------------------- */
+
+.education-timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: 3rem;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 80%, transparent 100%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -3rem;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  transform: translateX(-5.5px);
+  border-radius: 50%;
+  background: #050505;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item:hover .timeline-dot {
+  border-color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  transform: translateX(-5.5px) scale(1.2);
+}
+
+.education-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+@media (min-width: 768px) {
+  .education-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+  }
+}
+
+.education-info {
+  text-align: left;
+}
+
+.education-date {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.education-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 0.25rem;
+  font-family: var(--font-heading);
+}
+
+.education-details {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.25rem;
+  font-family: var(--font-roboto);
+}
+
+.education-institute {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .education-institute {
+    text-align: right;
+    align-items: flex-end;
+  }
+}
+
+.institute-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.institute-grade {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 0.25rem;
+}
+
+.current-education-card {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.08), inset 0 0 15px rgba(255, 255, 255, 0.03) !important;
+}
+
+.current-education-card:hover {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.18), inset 0 0 20px rgba(255, 255, 255, 0.05) !important;
+}

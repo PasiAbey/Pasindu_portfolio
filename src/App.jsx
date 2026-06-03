@@ -155,7 +155,7 @@ function App() {
 
   // Scroll-based active section detection
   useEffect(() => {
-    const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+    const sections = ['home', 'about', 'skills', 'projects', 'education', 'contact'];
     const handleScroll = () => {
       const scrollY = window.scrollY + 120;
       let current = 'home';
@@ -210,7 +210,7 @@ function App() {
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Works' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'education', label: 'Education' },
   ];
 
   return (
@@ -500,6 +500,57 @@ function App() {
                 <a href="https://github.com/PasiAbey" target="_blank" rel="noopener noreferrer" className="btn-primary github-cta-btn">
                   <Github size={20} className="mr-3" /> Visit Github <ArrowRight className="ml-3 github-cta-btn-arrow transition-transform" size={18} />
                 </a>
+              </div>
+            </div>
+          </section>
+
+          {/* Education Section */}
+          <section id="education" className="py-32 border-t border-white/5 bg-white/[0.01]">
+            <div className="container">
+              <div className="flex justify-center mb-16">
+                <h2 className="text-huge font-black tracking-tighter leading-[1] uppercase whitespace-nowrap">
+                  <span className="text-white">Education</span>{" "}
+                  <span className="liquid-glass-white ml-4" data-text="History.">History.</span>
+                </h2>
+              </div>
+
+              <div className="education-timeline">
+                {/* Timeline vertical bar */}
+                <div className="timeline-line"></div>
+
+                {/* Timeline Items */}
+                <div className="timeline-item">
+                  {/* Bullet indicator */}
+                  <div className="timeline-dot"></div>
+                  
+                  <div className="glass-card education-card current-education-card">
+                    <div className="education-info">
+                      <span className="education-date">2022 - Present</span>
+                      <h3 className="education-title">Bachelor of Science in Information Technology</h3>
+                      <p className="education-details">Focus on DevOps & Cloud Technologies</p>
+                    </div>
+                    <div className="education-institute">
+                      <span className="institute-name">Rajarata University of Sri Lanka</span>
+                      <span className="institute-grade">Undergraduate</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="timeline-item">
+                  {/* Bullet indicator */}
+                  <div className="timeline-dot"></div>
+                  
+                  <div className="glass-card education-card">
+                    <div className="education-info">
+                      <span className="education-date">2018 - 2020</span>
+                      <h3 className="education-title">G.C.E. Advanced Level</h3>
+                      <p className="education-details">Technology Stream</p>
+                    </div>
+                    <div className="education-institute">
+                      <span className="institute-name">Galahitiyawa Central College</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
