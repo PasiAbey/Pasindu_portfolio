@@ -510,7 +510,7 @@ h6 {
   transition: all 0.3s ease;
   text-decoration: none;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: auto;
 }
 
 .project-details-btn:hover {
