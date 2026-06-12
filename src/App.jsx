@@ -51,7 +51,7 @@ function App() {
           </div>
 
           <div>
-            <strong className="text-white text-[0.95rem]">Ky Features</strong>
+            <strong className="text-white text-[0.95rem]">Key Features</strong>
             <ul className="list-disc pl-5 mt-2 space-y-2 text-white/70">
               <li><strong>Adaptive Reinforcement Learning:</strong> Utilizes a Deep Q-Network (DQN) algorithm served via a dedicated Python API to track user states, calculate reward functions, and intelligently adapt educational content to the user's skill level.</li>
               <li><strong>Advanced Gamification Engine:</strong> Features a robust milestone system that calculates and awards badges, tracks consecutive login streaks, and manages user scores to incentivize consistent learning habits.</li>
